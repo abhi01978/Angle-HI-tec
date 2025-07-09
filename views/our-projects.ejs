@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Our Projects</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Font Awesome Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+<body class="bg-gray-100">
+<!-- Topbar Start -->
+ <!-- Topbar Start -->
+  <div class="hidden lg:block bg-gray-800 w-full">
+    <div class="max-w-7xl mx-auto px-4 py-2 flex justify-between items-center text-sm text-gray-300">
+      <!-- Left -->
+      <div>
+        <h1 class="text-xl font-bold text-blue-400">Angel High-Tech Polymers</h1>
+      </div>
+
+      <!-- Right -->
+      <div class="flex flex-wrap items-center space-x-6">
+        <div class="flex items-center space-x-1">
+          <i class="fas fa-map-marker-alt text-blue-500"></i>
+          <span>Plot No-75 Rajeev Colony, IND</span>
+        </div>
+        <div class="flex items-center space-x-1">
+          <i class="far fa-envelope-open text-blue-500"></i>
+          <span>angeltecho27@yahoo.com</span>
+        </div>
+        <div class="flex items-center space-x-2">
+          <a href="#" class="w-7 h-7 flex items-center justify-center bg-gray-700 text-blue-400 rounded"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="w-7 h-7 flex items-center justify-center bg-gray-700 text-blue-400 rounded"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="w-7 h-7 flex items-center justify-center bg-gray-700 text-blue-400 rounded"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" class="w-7 h-7 flex items-center justify-center bg-gray-700 text-blue-400 rounded"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Topbar End -->
+
+  <!-- Navbar Start -->
+  <div class="sticky top-0 z-50 bg-gray-900 shadow-md border-b border-gray-800">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="flex justify-between items-center py-4">
+        <!-- Logo (Mobile) -->
+        <div class="lg:hidden">
+          <h1 class="text-xl font-bold text-blue-400">Angel Hi-Tech Polymers</h1>
+        </div>
+
+        <!-- Hamburger -->
+        <div class="lg:hidden">
+          <button id="menu-btn" class="text-white text-2xl"><i class="fas fa-bars"></i></button>
+        </div>
+
+        <!-- Nav Links -->
+        <div id="menu" class="hidden lg:flex lg:items-center lg:space-x-6 w-full lg:w-auto">
+          <a href="/" class="text-gray-300 hover:text-blue-400">Home</a>
+          <a href="about.php" class="text-gray-300 hover:text-blue-400">About</a>
+          <a href="service.php" class="text-gray-300 hover:text-blue-400">Services</a>
+          <a href="gallery.php" class="text-gray-300 hover:text-blue-400">Gallery</a>
+          <a href="contact.php" class="text-gray-300 hover:text-blue-400">Contact</a>
+          <a href="/login" class="text-gray-300 hover:text-blue-400">Login</a>
+        </div>
+
+        <!-- Emergency Call -->
+        <div class="hidden lg:flex items-center bg-blue-600 text-white px-4 py-2 rounded">
+          <div class="flex items-center justify-center bg-white text-blue-600 w-10 h-10 rounded-full">
+            <i class="fa fa-phone-alt"></i>
+          </div>
+          <div class="ml-3">
+            <p class="text-sm">Emergency 24/7</p>
+            <p class="text-base font-semibold">+91 80101 30315</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="lg:hidden hidden px-4 pb-4 bg-gray-900">
+      <a href="/" class="block py-2 text-gray-300 hover:text-blue-400">Home</a>
+      <a href="about.php" class="block py-2 text-gray-300 hover:text-blue-400">About</a>
+      <a href="service.php" class="block py-2 text-gray-300 hover:text-blue-400">Services</a>
+      <a href="gallery.php" class="block py-2 text-gray-300 hover:text-blue-400">Gallery</a>
+      <a href="contact.php" class="block py-2 text-gray-300 hover:text-blue-400">Contact</a>
+      <a href="/our-projects" class="block py-2 text-gray-300 hover:text-blue-400">Our Projects</a>
+      <a href="/login" class="block py-2 text-gray-300 hover:text-blue-400">Login</a>
+    </div>
+  </div>
+  <!-- Navbar End -->
+<!-- Navbar End -->
+
+<!-- Script for toggle -->
+<script>
+  const menuBtn = document.getElementById('menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  menuBtn.addEventListener('click', () => {
+    mobileMenu.classList.toggle('hidden');
+  });
+</script>
+    
+
+  <div class="max-w-7xl mx-auto px-4 py-10">
+    <h2 class="text-3xl font-bold text-center text-gray-800 mb-10">Our Projects</h2>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+      <% projects.forEach(project => { %>
+        <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition duration-300 p-5">
+          <% if (project.mediaType === 'image') { %>
+            <img src="<%= project.mediaPath %>" alt="Project Image" class="w-full h-48 object-cover rounded-lg mb-4">
+          <% } else { %>
+            <video controls class="w-full h-48 object-cover rounded-lg mb-4">
+              <source src="<%= project.mediaPath %>" type="video/mp4">
+            </video>
+          <% } %>
+
+          <h3 class="text-xl font-semibold text-gray-800 mb-2"><%= project.title %></h3>
+          <p class="text-gray-600"><%= project.description %></p>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+
+
+  <!-- Tailwind Footer Start -->
+<footer class="bg-gray-900 text-gray-300 pt-12 pb-8">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+      <!-- Address -->
+      <div>
+        <h4 class="text-white text-lg font-semibold mb-4">Address</h4>
+        <p class="mb-2 flex items-start"><i class="fa fa-map-marker-alt text-blue-500 mr-2 mt-1"></i> Plot No-75 Rajeev Colony, Ballabgarh Faridabad HR, INDIA</p>
+        <p class="mb-2 flex items-start"><i class="fa fa-phone-alt text-blue-500 mr-2 mt-1"></i> +91 8010130315,<br>+91 9971138806,<br>+91 8860280982,<br>+91 8860518930</p>
+        <p class="mb-4 flex items-start"><i class="fa fa-envelope text-blue-500 mr-2 mt-1"></i> angeltecho27@yahoo.com<br>angelhightech27@gmail.com</p>
+        <div class="flex space-x-3 mt-2">
+          <a href="#" class="text-white hover:text-blue-500 border border-gray-500 p-2 rounded-full"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="text-white hover:text-blue-500 border border-gray-500 p-2 rounded-full"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="text-white hover:text-blue-500 border border-gray-500 p-2 rounded-full"><i class="fab fa-youtube"></i></a>
+          <a href="#" class="text-white hover:text-blue-500 border border-gray-500 p-2 rounded-full"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+
+      <!-- Opening Hours -->
+      <div>
+        <h4 class="text-white text-lg font-semibold mb-4">Opening Hours</h4>
+        <p class="mb-2"><span class="font-semibold text-white">Monday - Friday:</span><br>09.00 AM - 09.00 PM</p>
+        <p><span class="font-semibold text-white">Saturday - Sunday:</span><br>09.00 AM - 12.00 PM</p>
+      </div>
+
+      <!-- Services -->
+      <div>
+        <h4 class="text-white text-lg font-semibold mb-4">Services</h4>
+        <ul class="space-y-2">
+          <li><a href="#" class="hover:text-blue-400 transition">Waterproofing</a></li>
+          <li><a href="#" class="hover:text-blue-400 transition">Structural Re-habilitation</a></li>
+          <li><a href="#" class="hover:text-blue-400 transition">Epoxy floorings</a></li>
+          <li><a href="#" class="hover:text-blue-400 transition">Heavy Duty Industrial Flooring</a></li>
+          <li><a href="#" class="hover:text-blue-400 transition">PU floorings</a></li>
+        </ul>
+      </div>
+
+      <!-- Newsletter -->
+      <div>
+        <h4 class="text-white text-lg font-semibold mb-4">Newsletter</h4>
+        <p class="mb-4">Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
+        <form class="relative">
+          <input type="text" class="w-full p-3 rounded-lg text-gray-800 focus:outline-none" placeholder="Your email">
+          <button type="submit" class="absolute top-1 right-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg">SignUp</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Footer -->
+  <div class="border-t border-gray-700 mt-10 pt-6 text-sm text-center">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center">
+      <p class="mb-2 sm:mb-0">© <a href="#" class="text-blue-400 hover:underline">Angel Hi-Tech Polymers</a>, All Rights Reserved.</p>
+      <p>Designed By <a href="https://liveindiatech.com" class="text-blue-400 hover:underline">Live India Tech</a></p>
+    </div>
+  </div>
+</footer>
+<!-- Tailwind Footer End -->
+
+
+</body>
+</html>
