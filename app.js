@@ -20,7 +20,7 @@ app.use(session({
   saveUninitialized: true
 }));
 
-// ✅ Set user globally in res.locals
+// ✅ Set user globally in res.locals (for conditional navbar etc.)
 app.use((req, res, next) => {
   res.locals.user = req.session.user || null;
   next();
@@ -40,14 +40,13 @@ const storage = multer.diskStorage({
 });
 
 const fileFilter = (req, file, cb) => {
-  const allowedTypes = /jpeg|jpg|png|gif|webp/;
   const ext = path.extname(file.originalname).toLowerCase();
-  const mime = file.mimetype;
+  const allowedExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp'];
 
-  if (allowedTypes.test(ext) && mime.startsWith('image/')) {
+  if (allowedExtensions.includes(ext) && file.mimetype.startsWith('image/')) {
     cb(null, true);
   } else {
-    cb(new Error('Only image files are allowed. Video not supported.'));
+    cb(null, false); // Not an error, just reject the file
   }
 };
 
@@ -59,7 +58,7 @@ function isLoggedIn(req, res, next) {
   return res.redirect('/admin/login');
 }
 
-// ✅ Dynamic render wrapper (optional)
+// ======= View Rendering Helper =======
 function renderWithUser(view) {
   return (req, res) => res.render(view);
 }
@@ -108,12 +107,8 @@ app.get('/admin/upload', isLoggedIn, renderWithUser('upload'));
 
 app.post('/admin/upload', isLoggedIn, (req, res) => {
   upload.single('media')(req, res, async function (err) {
-    if (err) {
-      return res.status(400).send('❌ Video not supported. Please upload an image only.');
-    }
-
     if (!req.file) {
-      return res.status(400).send('❌ No image uploaded.');
+      return res.status(400).send('❌ No image uploaded or unsupported file format.');
     }
 
     const { title, description, section } = req.body;
@@ -154,10 +149,10 @@ app.get('/admin/edit/:id', isLoggedIn, async (req, res) => {
 app.post('/admin/edit/:id', isLoggedIn, (req, res) => {
   upload.single('media')(req, res, async function (err) {
     const project = await Project.findById(req.params.id);
-    if (err) {
+    if (!req.file && err) {
       return res.status(400).render('edit', {
         project,
-        error: '❌ Video not supported. Please upload an image only.'
+        error: '❌ Invalid image file. Please upload a valid image.'
       });
     }
 
@@ -195,6 +190,6 @@ app.get('/logout', (req, res) => {
   });
 });
 
-// ======= START SERVER =======
+// ======= SERVER =======
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
