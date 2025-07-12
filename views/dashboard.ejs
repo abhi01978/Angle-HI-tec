@@ -11,7 +11,12 @@
       object-fit: cover;
     }
     body {
-      padding-top: 70px; /* For navbar spacing */
+      padding-top: 70px;
+    }
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
     }
   </style>
 </head>
@@ -45,32 +50,55 @@
       <a href="/admin/upload" class="btn btn-primary">+ Upload Project</a>
     </div>
 
+    <!-- 📦 Side-by-Side Before / After Section -->
     <div class="row">
-      <% projects.forEach(project => { %>
-        <div class="col-md-4 mb-4">
-          <div class="card shadow-sm h-100">
-            <% if (project.mediaType === 'image') { %>
-              <img src="<%= project.mediaPath %>" class="card-img-top" alt="Image" />
-            <% } else if (project.mediaType === 'video') { %>
-              <video class="card-img-top" controls>
-                <source src="<%= project.mediaPath %>" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-            <% } %>
-
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title"><%= project.title %></h5>
-              <p class="card-text"><%= project.description %></p>
-              <p class="badge bg-secondary w-fit"><%= project.mediaType %></p>
+      
+      <!-- 🔵 BEFORE -->
+      <div class="col-md-6 mb-5">
+        <div class="text-primary section-title">🕒 Project 1 Before Section</div>
+        <div class="row">
+          <% projects.filter(p => p.section === 'before').forEach(project => { %>
+            <div class="col-md-12 mb-4">
+              <div class="card shadow-sm h-100">
+                <img src="<%= project.mediaPath %>" class="card-img-top" alt="Image" />
+                <div class="card-body d-flex flex-column">
+                  <h5 class="card-title"><%= project.title %></h5>
+                  <p class="card-text"><%= project.description %></p>
+                  <!-- <p class="badge bg-secondary w-fit"><%= project.mediaType %> | <%= project.section %></p> -->
+                </div>
+                <div class="card-footer d-flex justify-content-between">
+                  <a href="/admin/edit/<%= project._id %>" class="btn btn-sm btn-warning">Edit</a>
+                  <a href="/admin/delete/<%= project._id %>" class="btn btn-sm btn-danger" onclick="return confirm('Delete this project?')">Delete</a>
+                </div>
+              </div>
             </div>
-
-            <div class="card-footer d-flex justify-content-between">
-              <a href="/admin/edit/<%= project._id %>" class="btn btn-sm btn-warning">Edit</a>
-              <a href="/admin/delete/<%= project._id %>" class="btn btn-sm btn-danger" onclick="return confirm('Delete this project?')">Delete</a>
-            </div>
-          </div>
+          <% }) %>
         </div>
-      <% }) %>
+      </div>
+
+      <!-- 🔴 AFTER -->
+      <div class="col-md-6 mb-5">
+        <div class="text-danger section-title">🕑 Project 2 After Section</div>
+        <div class="row">
+          <% projects.filter(p => p.section === 'after').forEach(project => { %>
+            <div class="col-md-12 mb-4">
+              <div class="card shadow-sm h-100">
+                <img src="<%= project.mediaPath %>" class="card-img-top" alt="Image" />
+                <div class="card-body d-flex flex-column">
+                  <h5 class="card-title"><%= project.title %></h5>
+                  <p class="card-text"><%= project.description %></p>
+                  <!-- <p class="badge bg-secondary w-fit"><%= project.mediaType %> | <%= project.section %></p> -->
+                </div>
+                <div class="card-footer d-flex justify-content-between">
+                  <a href="/admin/edit/<%= project._id %>" class="btn btn-sm btn-warning">Edit</a>
+                  <a href="/admin/delete/<%= project._id %>" class="btn btn-sm btn-danger" onclick="return confirm('Delete this project?')">Delete</a>
+                </div>
+              </div>
+            </div>
+          <% }) %>
+        </div>
+      </div>
+
     </div>
   </div>
 

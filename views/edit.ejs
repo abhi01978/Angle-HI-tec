@@ -16,7 +16,17 @@
             <h4 class="mb-0">Edit Project</h4>
           </div>
           <div class="card-body">
+
+            <!-- ✅ Show Error Message -->
+            <% if (typeof error !== 'undefined') { %>
+              <div class="alert alert-danger">
+                <%= error %>
+              </div>
+            <% } %>
+
+            <!-- ✅ Form Start -->
             <form action="/admin/edit/<%= project._id %>" method="POST" enctype="multipart/form-data">
+              
               <div class="mb-3">
                 <label class="form-label">Title</label>
                 <input type="text" name="title" value="<%= project.title %>" class="form-control" required />
@@ -41,12 +51,17 @@
 
               <div class="mb-3">
                 <label class="form-label">Change Media (optional)</label>
-                <input type="file" name="media" class="form-control" />
+                <!-- ✅ Only allow images -->
+                <input type="file" name="media" accept="image/*" class="form-control" />
               </div>
 
-              <button type="submit" class="btn btn-success">Update</button>
-              <a href="/admin/dashboard" class="btn btn-secondary ms-2">Cancel</a>
+              <div class="d-flex justify-content-between">
+                <button type="submit" class="btn btn-success">Update</button>
+                <a href="/admin/dashboard" class="btn btn-secondary">Cancel</a>
+              </div>
             </form>
+            <!-- ✅ Form End -->
+
           </div>
         </div>
       </div>
